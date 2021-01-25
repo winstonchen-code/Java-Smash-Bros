@@ -1,0 +1,22 @@
+.eighty{
+  width: 80%;
+  height: 100%;
+  margin: auto;
+  padding: 10px;
+  background-color: yellow;
+}
+
+body {
+  background-color: black;
+}
+
+.header {
+  text-align: center;
+  font-size: 50px;
+  background-color: red;
+  padding: 30px;
+}
+
+.card {
+  margin: auto!important;
+}
