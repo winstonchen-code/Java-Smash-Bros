@@ -13,6 +13,12 @@ class FightersController < ApplicationController
         render json: fighter 
     end
 
+    def update
+        Fighter.find(params[:id]).update(fighter_params)
+        render json: Fighter.find(params[:id])
+    end
+
+
     def destroy
         fighter = Fighter.find(params[:id])
         fighter.destroy 
@@ -22,7 +28,7 @@ class FightersController < ApplicationController
     private
 
     def fighter_params
-        params.require(:fighter).permit(:name, :series, :image, :description)
+        params.require(:fighter).permit(:name, :series, :image, :description, :likes)
     end
 
     def fighter_serializer_options()

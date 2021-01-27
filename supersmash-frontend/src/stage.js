@@ -1,4 +1,5 @@
-function fetchStages(){
+function getStages(){
+    document.querySelector('#stage-container').innerHTML = ""
     fetch('http://localhost:3000/stages')
     .then(res => res.json())
     .then(stages => {
@@ -7,9 +8,87 @@ function fetchStages(){
 }
 
 function renderStage(stage){
-    let ul = document.querySelector("#stages")
-    let li = document.createElement("li")
-    li.innerText = stage.name
-    ul.appendChild(li)
+    let stageBox = document.querySelector('#stage-container')
+
+    let card = document.createElement('div')
+      card.classList.add('card', 'm-2')
+    
+    let img = document.createElement('img')
+      img.className = 'card-img-top'
+      img.src = stage.image
+
+    let cardBody = document.createElement('div')
+      cardBody.classList.add('card-body')
+    
+    let cardTitle = document.createElement('h5')
+      cardTitle.classList.add('card-title')
+      cardTitle.textContent = stage.name
+    
+    // let cardFooter = document.createElement ('div')
+    //   cardFooter.classList.add('card-footer', 'd-flex', 'justify-content-center')
+    //   cardFooter.innerText = fighter.series
+
+    let cardLikes = document.createElement ('div')
+      cardLikes.classList.add('card-footer', 'd-flex', 'justify-content-center')
+      cardLikes.innerText = "Likes: " + stage.likes
+      
+      cardLikes.addEventListener('click', () => [
+        updateStageLikes(stage, cardLikes)
+      ])
+    
+    
+    cardBody.append(cardTitle, cardLikes)
+    card.append(img, cardBody)
+    stageBox.appendChild(card)
+
 }
 
+function updateStageLikes(stage, cardFooter){
+  let likes = parseInt(cardFooter.innerText.split(" ")[1])
+  let newLikes = {
+    likes: likes + 1
+  }
+  console.log(cardFooter)
+
+  let reqPackage = {}
+    reqPackage.headers = {"Content-Type": "application/json"}
+    reqPackage.method = "PATCH"
+    reqPackage.body = JSON.stringify(newLikes)
+  
+  fetch(`http://localhost:3000/stages/${stage.id}`, reqPackage)
+    .then(res => res.json())
+    .then((stageObj) => {
+      cardFooter.textContent = `Likes: ${newLikes.likes}`
+    })
+
+}
+
+function addingStage(event){
+  event.preventDefault()
+  let data = {
+    name: event.target.name.value,
+    image: event.target.image.value,
+    music: event.target.music.value,
+    maxplayers: event.target.max.value,
+    likes: 0 
+  }
+  postStage(data)
+}
+
+function postStage(data){
+  fetch('http://localhost:3000/stages', {
+    method: "POST",
+    headers: {
+      "Content-Type":"application/json",
+    },
+    body: JSON.stringify(data)
+  })
+  .then(res => res.json())
+  .then(data=> {
+    renderStage(data)
+  })
+}
+
+function clearStage(){
+  document.querySelector('#stage-container').innerHTML = ""
+}

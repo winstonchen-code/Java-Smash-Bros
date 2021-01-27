@@ -24,12 +24,17 @@ ActiveRecord::Schema.define(version: 2021_01_24_013110) do
     t.string "series"
     t.string "image"
     t.string "description"
+    t.integer "likes"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "stages", force: :cascade do |t|
     t.string "name"
+    t.string "image"
+    t.string "music"
+    t.integer "maxplayers"
+    t.integer "likes"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

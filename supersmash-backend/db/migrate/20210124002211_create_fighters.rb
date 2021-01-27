@@ -5,6 +5,7 @@ class CreateFighters < ActiveRecord::Migration[6.0]
       t.string :series
       t.string :image
       t.string :description
+      t.integer :likes
       t.timestamps
     end
   end

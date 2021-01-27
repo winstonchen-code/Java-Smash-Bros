@@ -1,4 +1,5 @@
-function fetchFighters(){
+function getFighters(){
+    document.querySelector('#fighter-container').innerHTML = ""
     fetch("http://localhost:3000/fighters")
     .then(res => res.json())
     .then(fighters => {
@@ -7,75 +8,85 @@ function fetchFighters(){
 }
 
 function renderFighter(fighter){
-    let div = document.querySelector("#fighters")
-    let fighterDiv = document.createElement("div")
-    div.appendChild(fighterDiv)
+    let fighterBox = document.querySelector('#fighter-container')
 
-    fighterDiv.classList.add("ui", "card")
-    fighterDiv.id = `fighter-${fighter.id}`
-    fighterDiv.innerHTML = `
-    <div class="image">
-    <img src="${fighter.image}">
-  </div>
-  <div class="content">
-    <a class="header">${fighter.name}</a>
-    <div class="meta">
-      <span class="date">${fighter.series}</span>
-    </div>
-    <div class="description">
-      ${fighter.description}
-    </div>
-  </div>
-  <div class="extra content">
-    <ul>
-    </ul>
-    <i class="trash icon" data-id=${fighter.id}></i>
-  </div>`
+    let card = document.createElement('div')
+      card.classList.add('card', 'm-2')
+    
+    let img = document.createElement('img')
+      img.className = 'card-img-top'
+      img.src = fighter.image
 
-  let deleteIcon = fighterDiv.querySelector('i')
-  deleteIcon.addEventListener("click", removeFighter)
+    let cardBody = document.createElement('div')
+      cardBody.classList.add('card-body')
+    
+    let cardTitle = document.createElement('h5')
+      cardTitle.classList.add('card-title')
+      cardTitle.textContent = fighter.name
+    
+    // let cardFooter = document.createElement ('div')
+    //   cardFooter.classList.add('card-footer', 'd-flex', 'justify-content-center')
+    //   cardFooter.innerText = fighter.series
 
-  let ul = fighterDiv.querySelector("ul")
-  fighter.stages.forEach(stage => {
-    ul.innerHTML += `<li>${stage.name}</li>`
-  })
+    let cardFooter = document.createElement ('div')
+      cardFooter.classList.add('card-footer', 'd-flex', 'justify-content-center')
+      cardFooter.innerText = "Likes: " + fighter.likes
+
+      cardFooter.addEventListener('click', () => [
+        updateLikes(fighter, cardFooter)
+      ])
+    
+    cardBody.append(cardTitle, cardFooter)
+    card.append(img, cardBody)
+    fighterBox.appendChild(card)
+
+}
+
+function updateLikes(fighter, cardFooter){
+  let likes = parseInt(cardFooter.innerText.split(" ")[1])
+  let newLikes = {
+    likes: likes + 1
+  }
+  console.log(cardFooter)
+
+  let reqPackage = {}
+    reqPackage.headers = {"Content-Type": "application/json"}
+    reqPackage.method = "PATCH"
+    reqPackage.body = JSON.stringify(newLikes)
+  
+  fetch(`http://localhost:3000/fighters/${fighter.id}`, reqPackage)
+    .then(res => res.json())
+    .then((fighterObj) => {
+      cardFooter.textContent = `Likes: ${newLikes.likes}`
+    })
 }
 
 function addingFighter(event){
-  event.preventDefault()
-  let data = {
-    name: event.target.name.value,
-    series: event.target.name.value, 
-    image: event.target.image.value,
-    description: event.target.description.value,
+    event.preventDefault()
+    let data = {
+      name: event.target.name.value,
+      series: event.target.series.value,
+      image: event.target.image.value,
+      description: event.target.description.value,
+      likes: 0 
+    }
+    postFighter(data)
   }
-  postFighter(data)
-}
-
-function postFighter(data){
-  fetch('http://localhost:3000/fighters', {
-    method: "POST",
-    headers: {
-      "Content-Type":"application/json",
-      "Accept":"application/json"
-    },
-    body: JSON.stringify(data)
-  })
-  .then(res => res.json())
-  .then(data => {
-    renderFighter(data)
-  })  
   
-}
+  function postFighter(data){
+    fetch('http://localhost:3000/fighters', {
+      method: "POST",
+      headers: {
+        "Content-Type":"application/json",
+      },
+      body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(data=> {
+      renderFighter(data)
+    })
+  }
 
-function removeFighter(event){
-  let id = event.target.dataset.id
-  fetch(`http://localhost:3000/fighters/${id}`, {
-    method: "DELETE"
-  })
-  .then(res => res.json())
-  .then(deletedFighter => {
-    document.querySelector(`#fighter-${id}`).remove()
-    console.log("remove?", deletedFighter)
-  })
-}
+  function clearFighter(){
+    document.querySelector('#fighter-container').innerHTML = ""
+  }

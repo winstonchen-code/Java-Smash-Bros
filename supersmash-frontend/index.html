@@ -6,6 +6,7 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <link href="styles/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
 
   </head>
   <body>
@@ -15,29 +16,79 @@
 
           <div class="eight wide column center">
             <div class="eighty">
-              <form class="ui form">
+              <form id="fighterForm" class="ui form">
                 <h3>Add a Fighter</h3>
                 <input type="text"placeholder="Name" name="name">
-                <input type="text"placeholder="Series" name="breed">
                 <input type="text"placeholder="Image" name="image">
+                <input type="text"placeholder="Series" name="series">
                 <input type="text"placeholder="Description" name="description">
                 <input class="ui button" type="submit">
               </form>
             </div>
           </div>
-
+          
           <div class="eight wide column center">
+            <div class="eighty">
+              <form id="stageForm" class="ui form">
+                <h3>Add a Stage</h3>
+                <input type="text"placeholder="Name" name="name">
+                <input type="text"placeholder="Image" name="image">
+                <input type="text"placeholder="Music" name="music">
+                <input type="text"placeholder="Max # of Players" name="max">
+                <input class="ui button" type="submit">
+              </form>
+            </div>
+          </div>
+
+          <!-- <div class="eight wide column center">
             <div class="eighty">
               <h3>Select a Stage</h3>
               <ul id='stages'><ul>
             </div>
-          </div>
+          </div> -->
           
 
           <div id='fighters' class="ui grid">
+            
           </div>
-
     </div>
+    <br>
+    <br>
+    <br>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+      <button id="smashBtn" class="btn btn-danger">SMASH</button>
+      <button id="smashBackBtn" class="btn btn-danger">CLEAR</button>
+    </nav>
+    
+  <div class="m-2 container-fluid">
+      <div class="card-columns" id="fighter-container">
+         
+      </div>
+  </div>
+
+
+  <br>
+  <br>
+  <br>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+    <button id="stageBtn" class="btn btn-danger">STAGE SELECT</button>
+    <button id="stageBackBtn" class="btn btn-danger">CLEAR</button>
+  </nav>
+  
+<div class="m-2 container-fluid">
+    <div class="card-columns" id="stage-container">
+       
+    </div>
+</div>
+<br>
+<br>
+<br>
+
+<footer id="main-footer">
+  <p class="text-muted">&copy; 2021 Java Smash Bros Coportation. All rights reserved. JSB Copyright Policy<p>
+</footer>
+</div>
+
 
     <script type="text/javascript" src="src/fighter.js"></script>
     <script type="text/javascript" src="src/stage.js"></script>
