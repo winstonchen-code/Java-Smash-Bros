@@ -153,8 +153,12 @@ function selectFighter(fighter){
       cardFooter.addEventListener('click', () => [
         updateLikes(fighter, cardFooter)
       ])
+    
+    let cardSeries = document.createElement ('div')
+      cardSeries.classList.add('card-footer', 'd-flex', 'justify-content-center')
+      cardSeries.innerText = "Series: " + fighter.series
 
-    cardBody.append(cardTitle, cardFooter)
+    cardBody.append(cardTitle, cardFooter, cardSeries)
     card.append(img, cardBody)
     fighterBox.appendChild(card)
 }

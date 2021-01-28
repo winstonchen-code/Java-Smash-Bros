@@ -36,6 +36,15 @@ function renderStage(stage){
       cardLikes.addEventListener('click', () => [
         updateStageLikes(stage, cardLikes)
       ])
+
+    let cardInformation = document.createElement ('div')
+      cardInformation.classList.add('card-footer', 'd-flex', 'justify-content-center')
+    
+    let btnSelect = document.createElement("button")
+      btnSelect.innerHTML = "Select Me" 
+      btnSelect.addEventListener("click", () => {
+        selectStage(stage)
+    })
     
       let cardDelete = document.createElement ('div')
       cardDelete.classList.add('card-footer', 'd-flex', 'justify-content-center')
@@ -47,8 +56,9 @@ function renderStage(stage){
         deleteStage(stage)
       })
     
+    cardInformation.appendChild(btnSelect)
     cardDelete.appendChild(btn)
-    cardBody.append(cardTitle, cardLikes, cardDelete)
+    cardBody.append(cardTitle, cardLikes, cardInformation, cardDelete)
     card.append(img, cardBody)
     stageBox.appendChild(card)
 
@@ -112,4 +122,46 @@ function deleteStage(stage){
     .then(() => {
       document.getElementById(`stage-${stage.id}`).remove()
     })
+}
+
+
+function selectStage(stage){
+  document.querySelector('#stage-container').innerHTML = ""
+  let stageBox = document.querySelector('#stage-container')
+
+  let card = document.createElement('div')
+    card.classList.add('card', 'm-2')
+    card.id = `stage-${stage.id}`
+  
+  let img = document.createElement('img')
+    img.className = 'card-img-top'
+    img.src = stage.image
+
+  let cardBody = document.createElement('div')
+    cardBody.classList.add('card-body')
+  
+  let cardTitle = document.createElement('h5')
+    cardTitle.classList.add('card-title')
+    cardTitle.textContent = stage.name
+      
+  // let cardFooter = document.createElement ('div')
+  //   cardFooter.classList.add('card-footer', 'd-flex', 'justify-content-center')
+  //   cardFooter.innerText = fighter.series
+
+  let cardLikes = document.createElement ('div')
+    cardLikes.classList.add('card-footer', 'd-flex', 'justify-content-center')
+    cardLikes.innerText = "Likes: " + stage.likes
+    
+    cardLikes.addEventListener('click', () => [
+      updateStageLikes(stage, cardLikes)
+    ])
+  
+  let cardMax = document.createElement ('div')
+    cardMax.classList.add('card-footer', 'd-flex', 'justify-content-center')
+    cardMax.innerText = "Max # of Players: " + stage.maxplayers
+
+  cardBody.append(cardTitle, cardLikes, cardMax)
+  card.append(img, cardBody)
+  stageBox.appendChild(card)
+
 }
