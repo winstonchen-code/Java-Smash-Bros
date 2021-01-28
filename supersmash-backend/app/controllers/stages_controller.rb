@@ -20,6 +20,12 @@ class StagesController < ApplicationController
         render json: Stage.find(params[:id])
     end
 
+    def destroy
+        stage = Stage.find(params[:id])
+        stage.destroy 
+        render json: stage
+    end
+
     private
 
     def stage_params

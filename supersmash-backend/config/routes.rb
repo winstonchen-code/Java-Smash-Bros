@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   get '/stages/:id', to: 'stages#show'
   post '/stages', to: 'stages#create'
   patch '/stages/:id', to: 'stages#update'
+  delete '/stages/:id', to: 'stages#destroy'
 end

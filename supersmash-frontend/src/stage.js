@@ -12,6 +12,7 @@ function renderStage(stage){
 
     let card = document.createElement('div')
       card.classList.add('card', 'm-2')
+      card.id = `stage-${stage.id}`
     
     let img = document.createElement('img')
       img.className = 'card-img-top'
@@ -23,7 +24,7 @@ function renderStage(stage){
     let cardTitle = document.createElement('h5')
       cardTitle.classList.add('card-title')
       cardTitle.textContent = stage.name
-    
+        
     // let cardFooter = document.createElement ('div')
     //   cardFooter.classList.add('card-footer', 'd-flex', 'justify-content-center')
     //   cardFooter.innerText = fighter.series
@@ -36,8 +37,18 @@ function renderStage(stage){
         updateStageLikes(stage, cardLikes)
       ])
     
+      let cardDelete = document.createElement ('div')
+      cardDelete.classList.add('card-footer', 'd-flex', 'justify-content-center')
     
-    cardBody.append(cardTitle, cardLikes)
+      let btn = document.createElement("button")
+      btn.className = "btn btn-danger"
+      btn.innerHTML = "Delete" 
+      btn.addEventListener("click", () => {
+        deleteStage(stage)
+      })
+    
+    cardDelete.appendChild(btn)
+    cardBody.append(cardTitle, cardLikes, cardDelete)
     card.append(img, cardBody)
     stageBox.appendChild(card)
 
@@ -91,4 +102,14 @@ function postStage(data){
 
 function clearStage(){
   document.querySelector('#stage-container').innerHTML = ""
+}
+
+function deleteStage(stage){
+  let reqPackage = {}
+    reqPackage.headers = {"Content-Type": "application/json"}
+    reqPackage.method = "DELETE"
+  fetch(`http://localhost:3000/stages/${stage.id}`, reqPackage)
+    .then(() => {
+      document.getElementById(`stage-${stage.id}`).remove()
+    })
 }

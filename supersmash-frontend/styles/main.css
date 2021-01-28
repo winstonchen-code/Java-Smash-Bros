@@ -17,6 +17,13 @@ body {
   padding: 25px;
 }
 
+.subheader {
+  text-align: center;
+  font-size: 50px;
+  background-color: rgb(254, 254, 254);
+  padding: 30px;
+}
+
 .card {
   margin: auto!important;
 }
@@ -96,4 +103,45 @@ body {
   text-align: center;
   padding:20px;
   margin-top:0px;
+}
+
+body{
+  background-color:#f4f4f4;
+  color:#555;
+  font-family:Arial,Helvetica, sans-serif;
+  font-size:16px;
+  line-height:1.6em;
+  margin:0;
+}
+
+.container{
+  width:80%;
+  margin:auto;
+  overflow:hidden;
+}
+
+#main-header{
+  background-color:rgb(246, 254, 0);
+  color:rgb(246, 254, 0);
+}
+
+#navbar{
+  background-color:#333;
+  color:#fff;
+}
+
+#navbar ul{
+  padding: 0;
+  list-style: none;
+}
+
+#navbar li{
+  display:inline;
+}
+
+#navbar a{
+  color:#fff;
+  text-decoration: none;
+  font-size:18px;
+  padding-right:15px;
 }
