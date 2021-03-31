@@ -158,7 +158,21 @@ function selectFighter(fighter){
       cardSeries.classList.add('card-footer', 'd-flex', 'justify-content-center')
       cardSeries.innerText = "Series: " + fighter.series
 
-    cardBody.append(cardTitle, cardFooter, cardSeries)
+    let cardDescription = document.createElement ('div')
+      cardDescription.classList.add('card-footer', 'd-flex', 'justify-content-center')
+      cardDescription.innerText = "Description: " + fighter.description
+
+    let connectedStagesList = document.createElement ('ul')
+    connectedStagesList.classList.add('card-footer', 'd-flex', 'justify-content-center')
+
+
+    fighter.stages.forEach(stage => {
+      let newStage = document.createElement('li')
+          newStage.innerText = "Suggested stage: " + stage.name
+          connectedStagesList.appendChild(newStage)
+    })
+      
+    cardBody.append(cardTitle, cardFooter, cardSeries, cardDescription, connectedStagesList)
     card.append(img, cardBody)
     fighterBox.appendChild(card)
 }
