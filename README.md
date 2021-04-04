@@ -10,7 +10,7 @@ Drone Dock is a platform that uses creativity to inspire people of all ages to s
 
 ## WHAT'S NEXT
 
-We plan to build out more features of our application including filters, search bars, progress bars, etc. and ultimately deploy the application to the Web. After doing so, we want to promote our platform to users interested in drones, so that we can grow our community around the world.
+We plan to build out more features of our application including filters, search bars, progress bars, etc. and ultimately deploy the application to the Web. After doing so, we want to promote our platform to users interested in Super Smash Bros, so that we can grow our community around the world.
 
 ### Built by 
 * [Winston Chen](https://www.linkedin.com/in/winston-c/)
